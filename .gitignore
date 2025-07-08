@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+.pytest_cache/
+.cache/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+
+# VS Code / IDEA settings
+.vscode/
+.idea/
+
+# macOS / Windows system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+*.tgz 

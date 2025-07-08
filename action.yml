@@ -1,0 +1,48 @@
+name: 'Cased Deploy Notification'
+description: 'Send deployment event notifications to Cased from any CI/CD pipeline.'
+author: 'Cased'
+branding:
+  icon: 'rocket'
+  color: 'purple'
+inputs:
+  api_key:
+    description: 'Organization API key from Cased (found in Settings → API Keys)'
+    required: true
+  deployment_request:
+    description: 'Optional human-readable deployment description (defaults to an auto-generated value)'
+    required: false
+  repository_full_name:
+    description: 'GitHub repository full name (owner/repo). Defaults to ${{ github.repository }}'
+    required: false
+  status:
+    description: 'Deployment status: pending | running | success | failure | cancelled'
+    required: false
+    default: 'success'
+  event_metadata:
+    description: 'Optional JSON string with additional metadata to store.'
+    required: false
+  commit_sha:
+    description: 'Commit SHA being deployed (defaults to ${{ github.sha }})'
+    required: false
+  commit_message:
+    description: 'Commit message'
+    required: false
+  external_url:
+    description: 'Link to external deployment or CI run for quick access.'
+    required: false
+  cased_base_url:
+    description: 'Custom Cased base URL (rarely needed; default https://app.cased.com)'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    API_KEY: ${{ inputs.api_key }}
+    DEPLOYMENT_REQUEST: ${{ inputs.deployment_request }}
+    REPOSITORY_FULL_NAME: ${{ inputs.repository_full_name }}
+    STATUS: ${{ inputs.status }}
+    EVENT_METADATA: ${{ inputs.event_metadata }}
+    COMMIT_SHA: ${{ inputs.commit_sha }}
+    COMMIT_MESSAGE: ${{ inputs.commit_message }}
+    EXTERNAL_URL: ${{ inputs.external_url }}
+    CASED_BASE_URL: ${{ inputs.cased_base_url }}
