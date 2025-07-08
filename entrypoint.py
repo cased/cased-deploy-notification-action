@@ -35,7 +35,7 @@ def main():
         parts.append(f"to {repo_full}")
         deployment_request = " ".join(parts)
 
-    base_url = getenv("CASED_BASE_URL", "https://app.cased.com")
+    base_url = getenv("CASED_BASE_URL") or "https://app.cased.com"
     endpoint = f"{base_url.rstrip('/')}/api/v1/deployments/"
 
     payload = {
