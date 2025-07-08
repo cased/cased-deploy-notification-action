@@ -12,7 +12,7 @@ inputs:
     description: 'Optional human-readable deployment description (defaults to an auto-generated value)'
     required: false
   repository_full_name:
-    description: 'GitHub repository full name (owner/repo). Defaults to ${{ github.repository }}'
+    description: 'GitHub repository full name (owner/repo).'
     required: false
   status:
     description: 'Deployment status: pending | running | success | failure | cancelled'
@@ -22,7 +22,7 @@ inputs:
     description: 'Optional JSON string with additional metadata to store.'
     required: false
   commit_sha:
-    description: 'Commit SHA being deployed (defaults to ${{ github.sha }})'
+    description: 'Commit SHA being deployed.'
     required: false
   commit_message:
     description: 'Commit message'
