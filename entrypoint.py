@@ -47,6 +47,14 @@ def main():
     if repo_full_name:
         payload["repository_full_name"] = repo_full_name
 
+    # Include ref if provided or infer from GitHub vars
+    ref = getenv("REF") or getenv("GITHUB_REF_NAME") or getenv("GITHUB_REF", "")
+    if ref:
+        # Normalise to full refs/heads/ when it's a branch name
+        if not ref.startswith("refs/") and len(ref) < 60:  # heuristic: likely branch
+            ref = f"refs/heads/{ref}"
+        payload["ref"] = ref
+
     optional_fields = {
         "event_metadata": getenv("EVENT_METADATA"),
         "commit_sha": getenv("COMMIT_SHA") or getenv("GITHUB_SHA"),

@@ -14,6 +14,9 @@ inputs:
   repository_full_name:
     description: 'GitHub repository full name (owner/repo).'
     required: false
+  ref:
+    description: 'Git ref being deployed (branch, tag, or commit). Defaults to current workflow branch.'
+    required: false
   status:
     description: 'Deployment status: pending | running | success | failure | cancelled'
     required: false
@@ -40,6 +43,7 @@ runs:
     API_KEY: ${{ inputs.api_key }}
     DEPLOYMENT_REQUEST: ${{ inputs.deployment_request }}
     REPOSITORY_FULL_NAME: ${{ inputs.repository_full_name }}
+    REF: ${{ inputs.ref }}
     STATUS: ${{ inputs.status }}
     EVENT_METADATA: ${{ inputs.event_metadata }}
     COMMIT_SHA: ${{ inputs.commit_sha }}
