@@ -115,3 +115,27 @@ def test_invalid_metadata_passes_string(monkeypatch):
 
     entrypoint.main()
     assert captured["json"]["event_metadata"] == "not-json" 
+
+
+def test_github_run_fields(monkeypatch):
+    """Ensure github_run_id and github_run_url are populated correctly."""
+    monkeypatch.setenv("API_KEY", "token")
+    # Provide custom RUN_ID override and default GitHub variables
+    monkeypatch.setenv("RUN_ID", "12345")
+    monkeypatch.setenv("GITHUB_RUN_ID", "67890")
+    monkeypatch.setenv("GITHUB_REPOSITORY", "cased/app")
+    monkeypatch.setenv("GITHUB_SERVER_URL", "https://github.com")
+
+    captured = {}
+
+    def fake_post(url, json=None, headers=None, timeout=None):
+        captured["json"] = json
+        return DummyResponse(201)
+
+    monkeypatch.setattr(entrypoint.requests, "post", fake_post)
+
+    entrypoint.main()
+
+    payload = captured["json"]
+    assert payload["github_run_id"] == "12345"
+    assert payload["github_run_url"].endswith("/actions/runs/12345") 

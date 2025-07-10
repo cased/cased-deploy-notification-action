@@ -36,6 +36,12 @@ inputs:
   cased_base_url:
     description: 'Custom Cased base URL (rarely needed; default https://app.cased.com)'
     required: false
+  github_run_id:
+    description: 'GitHub Actions run ID to associate with the deployment.'
+    required: false
+  github_run_url:
+    description: 'URL to the GitHub Actions run.'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -50,3 +56,5 @@ runs:
     COMMIT_MESSAGE: ${{ inputs.commit_message }}
     EXTERNAL_URL: ${{ inputs.external_url }}
     CASED_BASE_URL: ${{ inputs.cased_base_url }}
+    RUN_ID: ${{ inputs.github_run_id }}
+    RUN_URL: ${{ inputs.github_run_url }}

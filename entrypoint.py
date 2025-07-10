@@ -55,11 +55,25 @@ def main():
             ref = f"refs/heads/{ref}"
         payload["ref"] = ref
 
+    # Determine GitHub run identifiers early
+    github_run_id_val = getenv("RUN_ID") or getenv("GITHUB_RUN_ID")
+    github_run_url_val = getenv("RUN_URL")
+    if not github_run_url_val and github_run_id_val:
+        github_run_url_val = (
+            getenv("GITHUB_SERVER_URL", "https://github.com").rstrip("/") + "/" +
+            getenv("GITHUB_REPOSITORY", "") + f"/actions/runs/{github_run_id_val}"
+        )
+
     optional_fields = {
         "event_metadata": getenv("EVENT_METADATA"),
         "commit_sha": getenv("COMMIT_SHA") or getenv("GITHUB_SHA"),
         "commit_message": getenv("COMMIT_MESSAGE"),
-        "external_url": getenv("EXTERNAL_URL") or getenv("GITHUB_SERVER_URL", "") + getenv("GITHUB_REPOSITORY", "") + "/actions/runs/" + getenv("GITHUB_RUN_ID", "") if getenv("GITHUB_RUN_ID") else None,
+        # External URL explicitly provided
+        "external_url": getenv("EXTERNAL_URL"),
+
+        # GitHub Actions run identifiers
+        "github_run_id": github_run_id_val,
+        "github_run_url": github_run_url_val,
     }
     for k, v in optional_fields.items():
         if v:
