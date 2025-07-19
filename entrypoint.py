@@ -74,6 +74,7 @@ def main():
         # GitHub Actions run identifiers
         "github_run_id": github_run_id_val,
         "github_run_url": github_run_url_val,
+        "workflow_id": getenv("WORKFLOW_ID"),
     }
     for k, v in optional_fields.items():
         if v:
