@@ -42,6 +42,9 @@ inputs:
   github_run_url:
     description: 'URL to the GitHub Actions run.'
     required: false
+  workflow_id:
+      description: 'GitHub Actions workflow ID'
+      required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -58,3 +61,4 @@ runs:
     CASED_BASE_URL: ${{ inputs.cased_base_url }}
     RUN_ID: ${{ inputs.github_run_id }}
     RUN_URL: ${{ inputs.github_run_url }}
+    WORKFLOW_ID: ${{ inputs.workflow_id }}
