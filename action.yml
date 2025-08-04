@@ -20,7 +20,7 @@ inputs:
   status:
     description: 'Deployment status: pending | running | success | failure | cancelled'
     required: false
-    default: 'success'
+    default: 'running'
   event_metadata:
     description: 'Optional JSON string with additional metadata to store.'
     required: false
