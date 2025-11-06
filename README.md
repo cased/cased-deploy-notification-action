@@ -29,6 +29,7 @@ jobs:
       # … your build & deploy steps …
 
       - name: Notify Cased
+        continue-on-error: true
         uses: cased/cased-deploy-notification-action@v1
         with:
           api_key: ${{ secrets.CASED_API_KEY }}
